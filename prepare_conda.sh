@@ -23,3 +23,5 @@ conda create -n myenv -c r r-base=3.3.2 -y
 echo 'source activate myenv' >> ~/.bash_profile
 
 source ~/.bash_profile
+
+rm ~/scratch/Miniconda2-latest-Linux-x86_64.sh
