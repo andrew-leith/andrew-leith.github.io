@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+  	<pre width="30"><code>
+  		#!/bin/bash
+	  </code></pre>
+    <p>This statement tells the computer that this file is a bash script.</p>
+    <br>
+    <pre width="30"><code>
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+    </code></pre>
+    <p>This line downloads the installer for miniconda, a particular distribution of conda.</p>
+    <br>
+    <pre width="30"><code>
+      mv Miniconda2-latest-Linux-x86_64.sh ~/scratch/
+    </code></pre>
+    <p>This line moves the installer to your scratch folder, which has far more storage space than your home directory.  The tilde is shorthand for 'my home directory', so when you run it, it will automatically substitute your home directory and utilize the correct file path to your scratch directory.</p>
+    <br>
+    <pre width="30"><code>
+      chmod 755 ~/scratch/Miniconda2-latest-Linux-x86_64.sh
+    </code></pre>
+    <p>This line changes the permissions of the installer so that it can be run.</p>
+    <br>
+    <pre width="30"><code>
+      ~/scratch/Miniconda2-latest-Linux-x86_64.sh -b -p ~/scratch/miniconda
+    </code></pre>
+    <p>This line creates a new directory in your scratch called 'miniconda' and installs minoconda into it.</p>
+    <br>
+    <pre width="30"><code>
+      echo 'export PATH=~/scratch/miniconda/bin:$PATH' >> ~/.bash_profile
+    </code></pre>
+    <p>This line adds a new entry to your .bash_profile file.  This hidden file, which you should not modify on your own, automatically executes the commands contained within in whenever you login. The new line modifies your $PATH - the list of directories through which the computer looks for software when you type a command - so that conda can be run from the command line with no extra steps.</p>
+    <br>
+    <pre width="30"><code>
+      source ~/.bash_profile
+    </code></pre>
+    <p>This line forces the computer to immediately re-run .bash_profile; otherwise, since the commands within are only run on login, you would need to log out and then back in for the previous change to take effect.</p>
+    <br>
+    <pre width="30"><code>
+      conda config --append channels r
+      conda config --append channels bioconda
+      conda config --append channels conda-forge
+    </code></pre>
+    <p>These lines add three important conda repositories to the list of repositories conda searches when you instruct it to install software.  conda-forge contains many general system packages, bioconda contains most widely-used bioinformatics packages, and r contains, well, R.</p>
+    <br>
+    <pre width="30"><code>
+      conda config --prepend channels compbiocore
+    </code></pre>
+    <p>This line adds the official CBC conda repository to the list of repositories.  Here, we use 'prepend' to ensure that this repository is the first one checked, such that if multiple repositories have the same software you'll get our version by default.</p>
+    <br>
+        <pre width="30"><code>
+      conda create -n myenv -c r r-base=3.3.2 -y
+    </code></pre>
+    <p>This line instructs conda to create a new environment called 'myenv' and then install R 3.3.2 into it.  This environment can then be modified as you see fit.</p>
+    <br>
+        <pre width="30"><code>
+      echo 'source activate myenv' >> ~/.bash_profile
+    </code></pre>
+    <p>This line adds another command to the aforementioned .bash_profile file.  The new command will instruct conda to run the 'myenv' environment immediately upon login so that you'll have access to your packages without needing to run any additional commands.</p>
+    <br>
+        <pre width="30"><code>
+      source ~/.bash_profile
+    </code></pre>
+    <p>This line, as above, reruns . bash_profile.</p>
+    <br>
+        <pre width="30"><code>
+      rm ~/scratch/Miniconda2-latest-Linux-x86_64.sh
+    </code></pre>
+    <p>This line removes the miniconda installer now that we are finished with it.</p>
+    <br>
+
+
+  </body>
+</html>
